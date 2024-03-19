@@ -125,8 +125,8 @@ class MultiModalityCausalLM(MultiModalityPreTrainedModel):
         # hack
         print("Here")
         self.language_model = LlamaForSampling(language_config)
-        neuron_model.to_neuron()
-        neuron_model.save('./neuron_artifacts')
+        self.language_model.to_neuron()
+        self.language_model.save('./neuron_artifacts')
 
     def prepare_inputs_embeds(
         self,
