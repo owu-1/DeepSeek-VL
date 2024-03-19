@@ -124,8 +124,7 @@ class MultiModalityCausalLM(MultiModalityPreTrainedModel):
         language_config = config.language_config
         # hack
         print("Here")
-        self.language_model = LlamaForSampling(language_config)
-        self.language_model.load_weights() # LlamaForCausalLM does this in its constructor. LlamaForSampling doesn't
+        self.language_model = LlamaForSampling.from_pretrained('deepseek-ai/deepseek-vl-7b-chat')
         self.language_model.to_neuron()
         self.language_model.save('./neuron_artifacts')
 
