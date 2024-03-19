@@ -32,6 +32,8 @@ from transformers.configuration_utils import PretrainedConfig
 from deepseek_vl.models.clip_encoder import CLIPVisionTower, HybridVisionTower
 from deepseek_vl.models.projector import MlpProjector
 
+from transformers_neuronx.llama.model import LlamaForSampling
+
 
 def model_name_to_cls(cls_name):
     if "MlpProjector" in cls_name:
@@ -120,7 +122,11 @@ class MultiModalityCausalLM(MultiModalityPreTrainedModel):
         self.aligner = aligner_cls(aligner_config.params)
 
         language_config = config.language_config
-        self.language_model = LlamaForCausalLM(language_config)
+        # hack
+        print("Here")
+        self.language_model = LlamaForSampling(language_config)
+        neuron_model.to_neuron()
+        neuron_model.save('./neuron_artifacts')
 
     def prepare_inputs_embeds(
         self,
