@@ -124,9 +124,7 @@ class MultiModalityCausalLM(MultiModalityPreTrainedModel):
         language_config = config.language_config
         # hack
         print("Here")
-        self.language_model = LlamaForSampling(language_config)
-        self.language_model.to_neuron()
-        self.language_model.save('./neuron_artifacts')
+        self.language_model = LlamaForSampling.from_pretrained('deepseek-ai/deepseek-vl-7b-chat', config=language_config)
 
     def prepare_inputs_embeds(
         self,
