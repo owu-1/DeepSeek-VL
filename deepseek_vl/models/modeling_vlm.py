@@ -125,6 +125,7 @@ class MultiModalityCausalLM(MultiModalityPreTrainedModel):
         # hack
         print("Here")
         self.language_model = LlamaForSampling(language_config)
+        self.language_model.load_weights() # LlamaForCausalLM does this in its constructor. LlamaForSampling doesn't
         self.language_model.to_neuron()
         self.language_model.save('./neuron_artifacts')
 
